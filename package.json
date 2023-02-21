@@ -1,9 +1,9 @@
 {
-	"name": "front-end",
+	"name": "classroom-madness",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "vite dev",
+		"start": "node build",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -14,7 +14,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.28.1", 
+		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-node": "^1.2.0",
 		"@sveltejs/kit": "^1.5.0",
 		"prettier": "^2.8.0",
@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"express": "^4.18.2",
 		"pusher-js": "^8.0.1"
 	}
 }
