@@ -52,7 +52,7 @@
   <h1>Welcome to Classroom Madness!</h1>
   <div class="start-form">
     <input type="text" value={uniqueId.toUpperCase()} />
-    <button class="btn">Create Room</button>
+    <a href="/room/{uniqueId.toUpperCase()}" class="btn">Create Room</a>
   </div>
 </div>
 
@@ -98,6 +98,10 @@
     z-index: 0;
     border-radius: 10px;
     margin: 0 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
   }
 
   .btn:before {
