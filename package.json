@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node build && node index.js",
+		"start": "vite build && node index.js",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
