@@ -48,31 +48,13 @@
     content="https://classroom-madness.cyclic.app/classroom-madness.png"
   />
 </svelte:head>
-<div class="container">
-  <h1>Welcome to Classroom Madness!</h1>
-  <div class="start-form">
-    <input type="text" value={uniqueId.toUpperCase()} />
-    <a href="/room/{uniqueId.toUpperCase()}" class="btn">Create Room</a>
-  </div>
+<h1>Welcome to Classroom Madness!</h1>
+<div class="start-form">
+  <input type="text" value={uniqueId.toUpperCase()} />
+  <a href="/room/{uniqueId.toUpperCase()}" class="btn">Create Room</a>
 </div>
 
 <style>
-  .container {
-    width: 100vw;
-    height: 100vh;
-    background: rgb(236, 238, 174);
-    background: radial-gradient(
-      circle,
-      rgba(236, 238, 174, 1) 0%,
-      rgba(148, 233, 177, 1) 100%
-    );
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: rgb(35, 60, 60);
-  }
-
   h1 {
     font-size: 3em;
     line-height: 2em;
