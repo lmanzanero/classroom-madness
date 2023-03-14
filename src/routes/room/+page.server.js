@@ -1,8 +1,7 @@
 // @ts-ignore
-export const load = async () => { 
-    const todos = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-    const data = await todos.json(); 
+export const load = async ({ url }) => {  
+  const roomId = url.searchParams.get('roomId');
     return { 
-      todos: data,
+      roomId
     }; 
 };

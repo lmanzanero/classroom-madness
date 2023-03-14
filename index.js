@@ -7,10 +7,10 @@ const app = express();
 app.get('/healthcheck', async (req, res) => {
   res.end('ok');
 });
- 
+
 // let SvelteKit handle everything else, including serving prerendered pages and static assets
-app.use(handler);
+app.use(handler); 
  
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log('listening on port 3000');
 });

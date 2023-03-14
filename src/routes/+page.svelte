@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
   export let data: PageData;
   const { uniqueId } = data;
+  let joinRoomId = "";
 </script>
 
 <svelte:head>
@@ -51,7 +52,12 @@
 <h1>Welcome to Classroom Madness!</h1>
 <div class="start-form">
   <input type="text" value={uniqueId.toUpperCase()} />
-  <a href="/room/{uniqueId.toUpperCase()}" class="btn">Create Room</a>
+  <a href="/room?roomId={uniqueId.toUpperCase()}" class="btn">Create Room</a>
+</div>
+
+<div class="start-form">
+  <input type="text" bind:value={joinRoomId} />
+  <a href="/room/{uniqueId.toUpperCase()}" class="btn">Join Room</a>
 </div>
 
 <style>
