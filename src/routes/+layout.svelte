@@ -1,5 +1,12 @@
 <script>
-  import "../global.css";
+  // Your selected Skeleton theme:
+  import "@skeletonlabs/skeleton/themes/theme-skeleton.css";
+
+  // This contains the bulk of Skeletons required styles:
+  import "@skeletonlabs/skeleton/styles/all.css";
+
+  // Finally, your application's global stylesheet (sometimes labeled 'app.css')
+  import "../app.postcss";
 </script>
 
 <div class="container">
@@ -7,7 +14,7 @@
 </div>
 
 <style>
-  .container {
+  /* .container {
     width: 100vw;
     height: 100vh;
     background: rgb(236, 238, 174);
@@ -21,5 +28,5 @@
     justify-content: center;
     align-items: center;
     color: rgb(35, 60, 60);
-  }
+  } */
 </style>
