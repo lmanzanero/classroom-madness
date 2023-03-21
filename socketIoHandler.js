@@ -1,10 +1,54 @@
 import { Server } from "socket.io";
 
-export default function injectSocketIO(server) {
+export default async function injectSocketIO(server) { 
   const io = new Server(server);
+    /**
+       * @type {{ id: string; username: any; room: any; }[]}
+       */
+    const users = [];
 
   io.on('connection', (socket) => {
+   
       let username = `User ${Math.round(Math.random() * 999999)}`;
+      socket.on('joinRoom', ({username, room }) => {
+        const user = {
+            id: socket.id,
+            username: username,
+            room: room
+        }
+        if(username) {
+            users.push(user);
+        }
+        socket.join(room)
+        console.log(users);
+
+        //Welcome message when room is created
+        socket.to(room).emit('roomMessage', `Room was created with ${socket.id}`)
+
+        //Broadcasdt when a user connects to room
+        socket.broadcast.to(room).emit('roomMessage', `${username} has joined the game`);
+        // Get room users
+        function getRoomUsers(room) {
+            return users.filter(user => user.room === room);
+        }
+
+        //Send users and room info
+        socket.to(room).emit("roomUsers", {
+            room: room,
+            users: getRoomUsers(room)
+        })
+      })
+
+      socket.on('startGame', ({room}) => {
+        //Start game for everyone in unique room
+        socket.broadcast.to(room).emit('gameStatus', true)
+      })
+
+      socket.on('endGame', ({room}) => {
+        //Start game for everyone in unique room
+        socket.broadcast.to(room).emit('gameStatus', false)
+      })
+
       socket.emit('name', username);
 
       socket.on('message', (message) => {
