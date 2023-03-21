@@ -52,25 +52,48 @@
 <div
   class="flex flex-col justify-center items-center text-center w-screen h-screen"
 >
-  <h1>Welcome to Classroom Madness!</h1>
-
-  <div class="flex gap-3 m-3">
-    <input
-      type="text"
-      class="input w-64"
-      placeholder="code"
-      value={uniqueId.toUpperCase()}
-    />
-    <a
-      href="/room?roomId={uniqueId.toUpperCase()}"
-      class="btn variant-filled-surface">Create Room</a
-    >
+  <div class="flex flex-row gap-3 m-5">
+    <h1>
+      <span
+        class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
+        >Classroom</span
+      >
+    </h1>
+    <h1>
+      <span
+        class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
+        >Madness</span
+      >
+    </h1>
   </div>
+  <h1>
+    <div class="flex gap-3 m-3">
+      <input
+        type="text"
+        class="input w-64"
+        placeholder="code"
+        value={uniqueId.toUpperCase()}
+      />
+      <a
+        href="/room?roomId={uniqueId.toUpperCase()}"
+        class="btn variant-filled-surface">Create Room</a
+      >
+    </div>
 
-  <div class="flex gap-3 m-3">
-    <input class="input w-64" type="text" bind:value={joinRoomId} />
-    <a href="/room/{uniqueId.toUpperCase()}" class="btn variant-filled-surface"
-      >Join Room</a
-    >
-  </div>
+    <div class="flex gap-3 m-3">
+      <input
+        class="input w-64"
+        type="text"
+        placeholder="Enter you name"
+        bind:value={joinRoomId}
+        required
+      />
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="/room/{uniqueId.toUpperCase()}"
+        class="btn variant-filled-surface">Join Room</a
+      >
+    </div>
+  </h1>
 </div>
