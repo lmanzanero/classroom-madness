@@ -7,23 +7,33 @@
 
   export let data: PageData;
   let name: any;
-  let message: any;
-  let users: any[] = [];
+  let roomMessage: any;
+  let roomUsers: any[] = [];
   let textfield = "";
 
   onMount(() => {
     document.cookie = "user_id=" + data.roomId;
-    socket.on("message", (message) => {
-      console.log({ message });
+
+    socket.emit("joinRoom", { room: data.roomId });
+
+    socket.on("roomMessage", (message) => {
+      roomMessage = message;
+      console.log(message);
     });
 
-    socket.on("name", (name) => {
-      console.log({ name });
+    socket.on("roomUsers", ({ room, users }) => {
+      console.log(room);
+      roomUsers = users;
     });
   });
 
   function startGame() {
-    console.log(users);
+    console.log(roomUsers);
+    socket.emit("startGame", { room: data.roomId });
+  }
+
+  function endGame() {
+    socket.emit("endGame", { room: data.roomId });
   }
 
   function sendMessage() {
@@ -35,36 +45,32 @@
   }
 </script>
 
-<h1>Room Created with ID: {data.roomId}</h1>
-<div id="user_list" />
-<div class="players">
-  <p>Player One</p>
-</div>
-
-<button on:click={startGame}>Start this Game</button>
-
-<p>Invite friends to join this room!</p>
-<p>{JSON.stringify(users)} {JSON.stringify(message)}</p>
-<div class="flex flex-row">
-  <input class="input" type="text" bind:value={data.roomId} />
-  <input class="input" type="text" bind:value={name} />
-  <a href="/room/{data.roomId}?username={name}" class="btn variant-filled"
-    >Join Room</a
-  >
-</div>
-
-<form
-  action="#"
-  on:submit|preventDefault={sendMessage}
-  class="px-6 py-4 border-t border-zinc-800 bg-zinc-700 text-white shrink-0 flex items-center"
+<div
+  class="flex flex-col justify-center items-center text-center w-screen h-screen"
 >
-  <input
-    type="text"
-    bind:value={textfield}
-    placeholder="Type something..."
-    class="input"
-  />
-  <button type="submit" class="btn variant-filled">Send</button>
-</form>
+  <h1>Room Created with ID: {data.roomId}</h1>
+  <div id="user_list" />
+  <div class="players" />
 
-<a href="/">Go back to home</a>
+  <p>{JSON.stringify(roomUsers)} <br /> Message: {roomMessage}</p>
+
+  <h4>Invite friends to join this room!</h4>
+  <div class="flex flex-row gap-3 m-4">
+    <input class="input" type="text" bind:value={data.roomId} />
+    <input class="input" type="text" bind:value={name} required />
+    <a
+      target="_blank"
+      rel="noreferrer"
+      href="/room/{data.roomId}?username={name}"
+      class="btn variant-filled">Join Room</a
+    >
+  </div>
+
+  <div class="btn-group variant-filled-success">
+    <button on:click={startGame}>Start</button>
+    <button>Pause</button>
+    <button on:click={endGame}>End</button>
+  </div>
+
+  <a href="/">Go back to home</a>
+</div>
