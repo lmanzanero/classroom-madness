@@ -7,6 +7,7 @@
 
   // Finally, your application's global stylesheet (sometimes labeled 'app.css')
   import "../app.postcss";
+  import "../global.css";
 </script>
 
 <div>
