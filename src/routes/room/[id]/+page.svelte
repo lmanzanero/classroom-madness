@@ -5,6 +5,8 @@
   import Phaser from "phaser";
   import { Toast, toastStore } from "@skeletonlabs/skeleton";
   import type { ToastSettings } from "@skeletonlabs/skeleton";
+  import { Modal, modalStore } from "@skeletonlabs/skeleton";
+  import type { ModalSettings, ModalComponent } from "@skeletonlabs/skeleton";
 
   import { io } from "socket.io-client";
 
@@ -236,6 +238,17 @@
     }
   }
 
+  const prompt: ModalSettings = {
+    type: "prompt",
+    // Data
+    title: "Please type this sentence",
+    body: "I like to eat pizza.",
+    // Populates the input value and attributes
+    value: "",
+    valueAttr: { type: "text", minlength: 20, maxlength: 20, required: true },
+    // Returns the updated response value
+    response: (r: string) => console.log("response:", r),
+  };
   $: {
     if (score > 0) {
       socket.emit("scoreChange", {
@@ -243,6 +256,10 @@
         user: data.username,
         score: score,
       });
+    }
+
+    if (score > 100) {
+      modalStore.trigger(prompt);
     }
   }
 
@@ -263,6 +280,7 @@
   >Restart</button
 >
 <Toast />
+<Modal />
 
 <style>
   canvas {
