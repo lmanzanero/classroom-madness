@@ -1,4 +1,5 @@
 // @ts-ignore
+export const ssr = false;
 export const load = async ({ url, params }) => {  
   return { 
     pageId: params.id,
