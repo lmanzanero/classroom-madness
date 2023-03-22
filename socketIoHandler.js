@@ -6,7 +6,7 @@ export default async function injectSocketIO(server) {
        * @type {{ id: string; username: any; room: any; }[]}
        */
     const users = [];
-
+ 
   io.on('connection', (socket) => {
    
       let username = `User ${Math.round(Math.random() * 999999)}`;
@@ -14,7 +14,10 @@ export default async function injectSocketIO(server) {
         const user = {
             id: socket.id,
             username: username,
-            room: room
+            room: room,
+            score: 0,
+            level: 0,
+            health:0 
         }
         if(username) {
             users.push(user);
@@ -42,11 +45,26 @@ export default async function injectSocketIO(server) {
       socket.on('startGame', ({room}) => {
         //Start game for everyone in unique room
         socket.broadcast.to(room).emit('gameStatus', true)
-      })
+      });
 
       socket.on('endGame', ({room}) => {
         //Start game for everyone in unique room
         socket.broadcast.to(room).emit('gameStatus', false)
+      });
+
+      socket.on('scoreChange', ({room, user, score}) => {
+        console.log(room, user, score)
+        //update score for user
+         users.forEach((roomUser, index) => {
+            if(roomUser.username === user) {
+                users[index].score = score;
+            }  
+        });
+
+        console.log(users)
+
+        //show new score to users
+        socket.broadcast.to(room).emit('scoreUpdates', users);
       })
 
       socket.emit('name', username);
