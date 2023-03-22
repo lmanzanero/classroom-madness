@@ -24,9 +24,8 @@
       roomUsers = users;
     });
 
-    socket.on("scoreUpdates", (updates) => {
-      console.log(updates);
-      roomUsers = updates;
+    socket.on("scoreUpdates", ({ updatedScores }) => {
+      roomUsers = updatedScores;
     });
   });
 
