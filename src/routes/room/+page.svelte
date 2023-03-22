@@ -18,17 +18,19 @@
 
     socket.on("roomMessage", (message) => {
       roomMessage = message;
-      console.log(message);
     });
 
     socket.on("roomUsers", ({ room, users }) => {
-      console.log(room);
       roomUsers = users;
+    });
+
+    socket.on("scoreUpdates", (updates) => {
+      console.log(updates);
+      roomUsers = updates;
     });
   });
 
   function startGame() {
-    console.log(roomUsers);
     socket.emit("startGame", { room: data.roomId });
   }
 
