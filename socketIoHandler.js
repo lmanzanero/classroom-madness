@@ -30,10 +30,6 @@ export default async function injectSocketIO(server) {
 
         //Broadcasdt when a user connects to room
         socket.broadcast.to(room).emit('roomMessage', `${username} has joined the game`);
-        // Get room users
-        function getRoomUsers(room) {
-            return users.filter(user => user.room === room);
-        }
 
         //Send users and room info
         socket.to(room).emit("roomUsers", {
@@ -41,6 +37,11 @@ export default async function injectSocketIO(server) {
             users: getRoomUsers(room)
         })
       })
+
+    // Get room users
+    function getRoomUsers(room) {
+        return users.filter(user => user.room === room);
+    }
 
       socket.on('startGame', ({room}) => {
         //Start game for everyone in unique room
@@ -57,14 +58,12 @@ export default async function injectSocketIO(server) {
         //update score for user
          users.forEach((roomUser, index) => {
             if(roomUser.username === user) {
-                users[index].score = score;
+                users[index].score = score
             }  
         });
 
-        console.log(users)
-
         //show new score to users
-        socket.broadcast.to(room).emit('scoreUpdates', users);
+        socket.broadcast.to(room).emit('scoreUpdates', {updatedScores: getRoomUsers(room)});
       })
 
       socket.emit('name', username);
