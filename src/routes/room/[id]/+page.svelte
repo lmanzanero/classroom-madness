@@ -21,6 +21,7 @@
     socket.on("gameStatus", (status) => {
       gameStart = status;
     });
+
     socket.on("message", (message) => {
       console.log({ message });
     });
@@ -232,6 +233,16 @@
       toastStore.trigger(t);
     } else {
       gameOver = true;
+    }
+  }
+
+  $: {
+    if (score > 0) {
+      socket.emit("scoreChange", {
+        room: data.pageId,
+        user: data.username,
+        score: score,
+      });
     }
   }
 
