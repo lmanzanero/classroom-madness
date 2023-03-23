@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import type { PageData } from "./$types";
   import { io } from "socket.io-client";
+  import { Avatar } from "@skeletonlabs/skeleton";
 
   const socket = io("http://localhost:3000");
 
@@ -52,6 +53,17 @@
   <h1>Room Created with ID: {data.roomId}</h1>
   <div id="user_list" />
   <div class="players" />
+
+  <div class="flex flex-row gap-3">
+    {#each roomUsers as user}
+      <!-- content here -->
+      <Avatar
+        initials={user.username}
+        border="border-4 border-surface-300-600-token hover:!border-primary-500"
+        cursor="cursor-pointer"
+      />
+    {/each}
+  </div>
 
   <p>{JSON.stringify(roomUsers)} <br /> Message: {roomMessage}</p>
 
