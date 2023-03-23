@@ -7,7 +7,8 @@
   import type { ToastSettings } from "@skeletonlabs/skeleton";
   import { Modal, modalStore } from "@skeletonlabs/skeleton";
   import type { ModalSettings, ModalComponent } from "@skeletonlabs/skeleton";
-
+  import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
+  import type { DrawerSettings } from "@skeletonlabs/skeleton";
   import { io } from "socket.io-client";
   import Question from "../../../components/Question.svelte";
 
@@ -262,6 +263,22 @@
       resumeGame();
     },
   };
+
+  const drawerSettings: DrawerSettings = {
+    id: "example-1",
+    // Provide your property overrides:
+    bgDrawer: "bg-purple-900 text-white",
+    bgBackdrop:
+      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
+    width: "w-[280px] md:w-[480px]",
+    padding: "p-2",
+    rounded: "rounded-xl",
+    position: "right",
+  };
+
+  function openDrawer() {
+    drawerStore.open(drawerSettings);
+  }
   $: {
     if (score > 0) {
       socket.emit("scoreChange", {
@@ -294,8 +311,17 @@
 <button on:click={restartGame} class="btn variant-filled-success"
   >Restart</button
 >
+<button on:click={openDrawer} class="btn variant-filled-success"
+  >Open Drawer</button
+>
 <Toast />
 <Modal regionBackdrop="staticModal fixed" components={modalComponentRegistry} />
+<Drawer>
+  <div class="p-3 w-full text-center">
+    <h3>Upgrade</h3>
+    <!-- Things the user can upgrade and increase health -->
+  </div>
+</Drawer>
 
 <style>
   canvas {
