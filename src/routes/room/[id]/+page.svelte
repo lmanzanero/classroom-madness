@@ -9,6 +9,7 @@
   import type { ModalSettings, ModalComponent } from "@skeletonlabs/skeleton";
 
   import { io } from "socket.io-client";
+  import Question from "../../../components/Question.svelte";
 
   const socket = io("http://localhost:3000");
 
@@ -57,6 +58,7 @@
   let platforms;
   let cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   let score = 0;
+  let previousScore = 0;
   let gameOver = false;
   let scoreText: Phaser.GameObjects.Text;
   const game = new Phaser.Game(config);
@@ -238,16 +240,27 @@
     }
   }
 
+  const modalComponentRegistry: Record<string, ModalComponent> = {
+    // Custom Modal 1
+    modalComponentOne: {
+      // Pass a reference to your custom component
+      ref: Question,
+      // Add the component properties as key/value pairs
+      props: { background: "bg-red-500" },
+      // Provide a template literal for the default component slot
+      slot: "<p>Skeleton</p>",
+    },
+  };
+
   const prompt: ModalSettings = {
-    type: "prompt",
+    type: "component",
     // Data
-    title: "Please type this sentence",
+    title: "Type the answer",
     body: "I like to eat pizza.",
-    // Populates the input value and attributes
-    value: "",
-    valueAttr: { type: "text", minlength: 20, maxlength: 20, required: true },
-    // Returns the updated response value
-    response: (r: string) => console.log("response:", r),
+    component: "modalComponentOne",
+    response: (r: string) => {
+      resumeGame();
+    },
   };
   $: {
     if (score > 0) {
@@ -258,7 +271,9 @@
       });
     }
 
-    if (score > 100) {
+    if (score > previousScore + 40) {
+      previousScore = score;
+      pauseGame();
       modalStore.trigger(prompt);
     }
   }
@@ -280,7 +295,7 @@
   >Restart</button
 >
 <Toast />
-<Modal />
+<Modal regionBackdrop="staticModal fixed" components={modalComponentRegistry} />
 
 <style>
   canvas {

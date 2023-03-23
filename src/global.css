@@ -10,3 +10,7 @@ canvas {
   height: 100vh; */
   object-fit: fit;
 }
+
+.modal-backdrop {
+  pointer-events: none;
+}
