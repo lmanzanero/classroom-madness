@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
+  import { PUBLIC_API_KEY } from "$env/static/public";
   import { onDestroy, onMount } from "svelte";
   import { AppBar } from "@skeletonlabs/skeleton";
   import Phaser from "phaser";
@@ -12,7 +13,7 @@
   import { io } from "socket.io-client";
   import Question from "../../../components/Question.svelte";
 
-  const socket = io(`${process.env.SERVER_URL}`);
+  const socket = io(PUBLIC_API_KEY);
 
   export let data: PageData;
   let gameStart = false;

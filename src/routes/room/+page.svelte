@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { PUBLIC_API_KEY } from "$env/static/public";
   import type { PageData } from "./$types";
   import { io } from "socket.io-client";
   import { Avatar } from "@skeletonlabs/skeleton";
 
-  const socket = io(`${process.env.SERVER_URL}`);
+  const socket = io(PUBLIC_API_KEY);
 
   export let data: PageData;
   let name: any;
