@@ -12,7 +12,7 @@
   import { io } from "socket.io-client";
   import Question from "../../../components/Question.svelte";
 
-  const socket = io("http://localhost:3000");
+  const socket = io(`${process.env.SERVER_URL}`);
 
   export let data: PageData;
   let gameStart = false;

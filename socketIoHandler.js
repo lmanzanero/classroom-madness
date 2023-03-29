@@ -9,7 +9,7 @@ export default async function injectSocketIO(server) {
  
   io.on('connection', (socket) => {
    
-      let username = `User ${Math.round(Math.random() * 999999)}`;
+      let username = `User ${Math.round(Math. random() * 999999)}`;
       socket.on('joinRoom', ({username, room }) => {
         const user = {
             id: socket.id,

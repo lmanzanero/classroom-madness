@@ -4,7 +4,7 @@
   import { io } from "socket.io-client";
   import { Avatar } from "@skeletonlabs/skeleton";
 
-  const socket = io("http://localhost:3000");
+  const socket = io(`${process.env.SERVER_URL}`);
 
   export let data: PageData;
   let name: any;
