@@ -4,6 +4,7 @@
   import type { PageData } from "./$types";
   import { io } from "socket.io-client";
   import { Avatar } from "@skeletonlabs/skeleton";
+  import QrCode from "svelte-qrcode";
 
   const socket = io(PUBLIC_API_KEY);
 
@@ -70,7 +71,7 @@
 
   <h4>Invite friends to join this room!</h4>
   <div class="flex flex-row gap-3 m-4">
-    <input class="input" type="text" bind:value={data.roomId} />
+    <!-- <input class="input" type="text" bind:value={data.roomId} />
     <input
       class="input"
       type="text"
@@ -83,9 +84,9 @@
       rel="noreferrer"
       href="/room/{data.roomId}?username={name}"
       class="btn variant-filled">Join Room</a
-    >
+    > -->
+    <QrCode value="{PUBLIC_API_KEY}/room/{data.roomId}?username={name}" />
   </div>
-
   <div class="btn-group variant-filled-success">
     <button on:click={startGame}>Start</button>
     <button>Pause</button>
