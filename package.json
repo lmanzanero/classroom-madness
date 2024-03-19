@@ -42,6 +42,7 @@
     "nanoid": "^3.3.4",
     "phaser": "^3.55.2",
     "socket.io": "^4.6.1",
-    "socket.io-client": "^4.6.1"
+    "socket.io-client": "^4.6.1",
+    "svelte-qrcode": "^1.0.0"
   }
 }
