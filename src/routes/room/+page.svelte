@@ -71,7 +71,13 @@
   <h4>Invite friends to join this room!</h4>
   <div class="flex flex-row gap-3 m-4">
     <input class="input" type="text" bind:value={data.roomId} />
-    <input class="input" type="text" bind:value={name} required />
+    <input
+      class="input"
+      type="text"
+      placeholder="Enter your name"
+      bind:value={name}
+      required
+    />
     <a
       target="_blank"
       rel="noreferrer"
