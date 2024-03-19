@@ -10,7 +10,7 @@
 
   export let data: PageData;
   let name: any;
-  let roomMessage: any;
+  let roomMessage: any = "";
   let roomUsers: any[] = [];
   let textfield = "";
 
@@ -52,7 +52,7 @@
 <div
   class="flex flex-col justify-center items-center text-center w-screen h-screen"
 >
-  <h1>Room Created with ID: {data.roomId}</h1>
+  <h1>Room ID: {data.roomId}</h1>
   <div id="user_list" />
   <div class="players" />
 
@@ -67,7 +67,8 @@
     {/each}
   </div>
 
-  <p>{JSON.stringify(roomUsers)} <br /> Message: {roomMessage}</p>
+  <p>{JSON.stringify(roomUsers)}</p>
+  <p>Data Logs: {roomMessage}</p>
 
   <h4>Invite friends to join this room!</h4>
   <div class="flex flex-row gap-3 m-4">
